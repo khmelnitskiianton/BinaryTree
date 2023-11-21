@@ -3,11 +3,12 @@
 
 #include "tree.h"
 #include "func.h"
+#include "log.h"
 #include "myassert.h"
 
 void TreeCtor (BinaryTree_t* myTree)
 {
-    MYASSERT(myTree, BAD_POINTER_PASSED_IN_FUNC,  )
+    MYASSERT(myTree, BAD_POINTER_PASSED_IN_FUNC, )
 
     myTree->Root = NULL;
 }
@@ -42,6 +43,7 @@ bool TreeInsert (Elem_t Value, BinaryTree_t* myTree)
     if (myTree->Root == NULL)
     {
         myTree->Root = NewNode;
+        PrintLogTree (myTree);
         return DONE;
     }
 
@@ -49,6 +51,7 @@ bool TreeInsert (Elem_t Value, BinaryTree_t* myTree)
     bool result = RecInsert (NewNode, myTree->Root, myTree);
     MYASSERT(result, TREE_SEARCH_NOT_DONE, return ERROR)
     
+    PrintLogTree (myTree);
     return DONE;
 }
 
@@ -64,7 +67,7 @@ bool RecInsert (Node_t* NewNode, Node_t* CurrentNode, BinaryTree_t* myTree)
         }
         else //если не пустой то вызываем рекурсивный обход
         {
-            RecInsert (NewNode, CurrentNode, myTree);
+            RecInsert (NewNode, CurrentNode->Left, myTree);
         }
         return DONE;
     }
@@ -78,13 +81,14 @@ bool RecInsert (Node_t* NewNode, Node_t* CurrentNode, BinaryTree_t* myTree)
         }
         else //если не пустой то вызываем рекурсивный обход
         {
-            RecInsert (NewNode, CurrentNode, myTree);
+            RecInsert (NewNode, CurrentNode->Right, myTree);
         }
         return DONE;
     }
     //Если нашли такой же элемент
     if (NewNode->Value == CurrentNode->Value)
     {
+        free (NewNode);
         printf("THIS ELEMENT HAS ALREADY IN TREE!!!\n");
         return DONE;
     }
@@ -141,32 +145,6 @@ Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode, BinaryTree_t* myTree)
     MYASSERT(0, BAD_TREE_SEARCH, return NULL)
 }
 
-void TreeDelete (Elem_t Value, BinaryTree_t* myTree)
-{
-    MYASSERT(myTree, BAD_POINTER_PASSED_IN_FUNC,  )
-
-    //TODO: Tree delete without parent
-    Node_t* PopNode = TreeSearch (Value, myTree);
-
-    if (PopNode->Right && PopNode->Left)
-    {
-
-    }
-    else if (PopNode->Right)
-    {
-
-    }
-    else if (PopNode->Left)
-    {
-
-    }
-    else 
-    {
-        
-    }
-    free (PopNode);
-}
-
 void RecFree (Node_t* CurrentNode, BinaryTree_t* myTree)
 {
     if (CurrentNode->Left)
@@ -180,4 +158,3 @@ void RecFree (Node_t* CurrentNode, BinaryTree_t* myTree)
 
     free(CurrentNode);
 }
-

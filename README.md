@@ -5,12 +5,9 @@ Base binary tree with functions and logs with GraphViz
 ## Table of Contents
 
 - [Introduction](#inroduction)
-- [Functions](#functions)
-    - [treeCtor](#treector)
-    - [treeDtor](#treedtor)
-    - [treeInit](#treeinit)
 - [List of Headers](#list-of-headers)
 - [List of Sources](#list-of-sources)
+- [Myassert](#myassert)
 - [Veryficator](#verificator)
 - [Logs](#logs)
 
@@ -42,74 +39,16 @@ To start programm you need to use CMake and run program
     $ ./tree
     ```
 
-## Functions
-
-All functions in func.h and func.cpp
-Main functions of binary tree:
-
-1. TreeCtor()
-
-    ```c
-    void    TreeCtor  (BinaryTree_t* myTree);
-    ```
-    - Description: construct binary tree
-    - Parameters:
-        - `myTree` - The tree struct.
-
-2. TreeDtor()
-
-    ```c
-    bool    TreeDtor  (BinaryTree_t* myTree);
-    ```
-    - Description: destruct binary tree
-    - Parameters:
-        - `myTree` - The tree struct. 
-    - Note: this functions use recursion travelsal to free() all elements
-
-3. TreeInsert()
-
-    ```c
-    bool    TreeInsert (Elem_t Value, BinaryTree_t* myTree);
-    ```
-
-    - Description: insert number in tree - with sort
-    - Parameters:
-        - `Value`  - value to insert
-        - `myTree` - The tree struct. 
-    - Note: this functions use recursion travelsal to insert element
-
-4. TreeSearch()
-
-    ```c
-    Node_t* TreeSearch (Elem_t Value, BinaryTree_t* myTree);
-    ```
-
-    - Description: insert number in tree - with sort
-    - Parameters:
-        - `Value`  - value to find
-        - `myTree` - The tree struct. 
-    - Note: this functions use recursion travelsal to find element in tree
-
-5. TreeDelete()
-
-    ```c
-    void    TreeDelete (Elem_t Value, BinaryTree_t* myTree);
-    ```
-
-    - Description: insert number in tree - with sort
-    - Parameters:
-        - `Value`  - value to delete
-        - `myTree` - The tree struct. 
-    - Note: this functions use recursion travelsal to delete element in tree
-
-    - NOT DONE YET NEED TO ADD PARENT TO NODE
+5. To test functions `TreeInsert(Elem_t, BinaryTree_t*)` and `TreeSearch(Elem_t, BinaryTree_t*)` write it to main.cpp like in example
 
 ## List of Headers
 
 - `myassert.h` my assert with beauty printing and not stopping program
-- `func.h`   all about functions
-- `log.h`    all about logs
-- `tree.h`   info about binary tree
+- `func.h`     all about functions
+- `log.h`      all about logs
+- `tree.h`     info about binary tree
+- `element.h`  type of elements in tree
+- `verificator.h` all about verificator
 
 ## List of Sources
 
@@ -117,10 +56,29 @@ Main functions of binary tree:
 - `func.cpp` contents all functions
 - `log.cpp`  source with log-functions
 
-## Veryficator
+## Myassert
 
-Now it relized like MYASSERT() that take all errors and write it to console
+`myassert.h`
+
+DEBUG_MYASSERT 1
+
+Now it relized like MYASSERT() that take all errors with enum and write it to console
+
+## Verificator
+
+`verificator.h`
+
+DEBUG_VERIFY 1
+
+---
 
 ## Logs
 
-I NEED TO WRITE IT :(((())))
+`log.cpp` `log.h`
+
+DEBUG_LOG 1
+
+Logs use GraphViz to vizualized graphs in pictures
+After generating image it includes to html file `log.html`
+
+![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/images/4.svg)

@@ -13,6 +13,4 @@ bool    RecInsert (Node_t* NewNode, Node_t* CurrentNode, BinaryTree_t* myTree);
 void    RecFree (Node_t* CurrentNode, BinaryTree_t* myTree);
 Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode, BinaryTree_t* myTree);
 
-void    TreeDelete (Elem_t Value, BinaryTree_t* myTree); //TODO: make without parent
-
 #endif

@@ -3,8 +3,6 @@
 
 #include <assert.h>
 
-#define DEBUG 1
-
 #define RED "\033[1;31m"
 #define GREEN "\033[1;32m"
 #define YELLOW "\033[1;33m"
@@ -20,7 +18,9 @@ enum CODES_OF_ERRORS {
     CLOSE_FILE                   = 4,
 };
 
-#ifdef DEBUG
+#define DEBUG_MYASSERT 1
+
+#ifdef DEBUG_MYASSERT
 #define MYASSERT(check, error_code, ending)                                                                         \
         do                                                                                                          \
         {                                                                                                           \

@@ -1,0 +1,39 @@
+digraph G{
+rankdir = TB;
+bgcolor = "#ff7f50";
+node[color = "#800000", fontsize = 10];
+edge[color = "#800000", fontsize = 15];
+subgraph cluster_list {
+	node[style = filled, fontsize = 10];
+	edge[color = "#800000", fontsize = 15];
+	style = "dashed";
+	color = "#800080";
+	node0x603000000040 [shape = Mrecord, style = filled, fillcolor = "#ffe4c4", color = "#800000", label = "{ PTR: 0x603000000040 | DATA: 2 | { <f0> LEFT: 0x603000000070 | <f1> RIGHT: 0x6030000000a0 }}"];
+	node0x603000000070 [shape = Mrecord, style = filled, fillcolor = "#ffe4c4", color = "#800000", label = "{ PTR: 0x603000000070 | DATA: -10 | { <f0> LEFT: (nil) | <f1> RIGHT: 0x603000000160 }}"];
+	null1 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x603000000070 -> null1 [color = "#000000"];
+	node0x603000000160 [shape = Mrecord, style = filled, fillcolor = "#ffe4c4", color = "#800000", label = "{ PTR: 0x603000000160 | DATA: -1 | { <f0> LEFT: (nil) | <f1> RIGHT: (nil) }}"];
+	null2 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x603000000160 -> null2 [color = "#000000"];
+	null3 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x603000000160 -> null3 [color = "#000000"];
+	node0x603000000070: <f1> -> node0x603000000160 [color = "#000000"]
+	node0x603000000040: <f0> -> node0x603000000070 [color = "#000000"]
+	node0x6030000000a0 [shape = Mrecord, style = filled, fillcolor = "#ffe4c4", color = "#800000", label = "{ PTR: 0x6030000000a0 | DATA: 10 | { <f0> LEFT: 0x6030000000d0 | <f1> RIGHT: (nil) }}"];
+	node0x6030000000d0 [shape = Mrecord, style = filled, fillcolor = "#ffe4c4", color = "#800000", label = "{ PTR: 0x6030000000d0 | DATA: 3 | { <f0> LEFT: (nil) | <f1> RIGHT: 0x603000000130 }}"];
+	null4 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x6030000000d0 -> null4 [color = "#000000"];
+	node0x603000000130 [shape = Mrecord, style = filled, fillcolor = "#ffe4c4", color = "#800000", label = "{ PTR: 0x603000000130 | DATA: 4 | { <f0> LEFT: (nil) | <f1> RIGHT: (nil) }}"];
+	null5 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x603000000130 -> null5 [color = "#000000"];
+	null6 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x603000000130 -> null6 [color = "#000000"];
+	node0x6030000000d0: <f1> -> node0x603000000130 [color = "#000000"]
+	node0x6030000000a0: <f0> -> node0x6030000000d0 [color = "#000000"]
+	null7 [shape = ellipse, style = filled, fillcolor = "#BC8F8F", color = "#800000", label = "ПУСТО"];
+	node0x6030000000a0 -> null7 [color = "#000000"];
+	node0x603000000040: <f1> -> node0x6030000000a0 [color = "#000000"]
+}
+All[shape = Mrecord, label = " HEADER | <f0> Root: 0x603000000040 ", style = "filled", fillcolor = "#ffe4c4"];
+All:<f0> -> node0x603000000040 [color = "#FFFFFF"];
+}
