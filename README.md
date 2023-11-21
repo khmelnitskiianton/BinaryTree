@@ -81,4 +81,4 @@ DEBUG_LOG 1
 Logs use GraphViz to vizualized graphs in pictures
 After generating image it includes to html file `log.html`
 
-![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/images/4.svg)
+![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/blob/main/images/4.svg)
