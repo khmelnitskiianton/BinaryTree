@@ -68,4 +68,4 @@ Checking tree for loops and other errors. Functions returns EnumOfErrors
 Logs use GraphViz to vizualized graphs in pictures
 After generating image it includes to html file `log.html`
 
-![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/log/example_log.svg)
+![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/blob/main/example_log.svg)
