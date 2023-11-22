@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 
 #include "tree.h"
 #include "log.h"
@@ -12,7 +13,13 @@ static size_t NullNodes = 0;
 
 void PrintLogStart (void)
 {
-    system("rm ./images/*");
+    struct stat sb = {};
+    if (stat("./" FOLDER_LOG, &sb) || !S_ISDIR(sb.st_mode)) 
+    { 
+        system("mkdir " FOLDER_LOG);
+        system("touch " FILE_GRAPH);
+        system("touch " FILE_LOG);
+    }
 
     FileLog = OpenFile (FILE_LOG);
 
@@ -48,13 +55,31 @@ void PrintLogFinish (void)
 void _PrintLogTree (BinaryTree_t* myTree, const char* file,  const char* function, const size_t line)
 {
     GenerateGraph (myTree);
-    GenerateImage ();
+    FILE* pPipe = GenerateImage ();
 
     fprintf(FileLog,    "\n<p>\n"
-                        "<b><big> ### In file: %s,\tIn function: %s,\tIn line: %lu ### </big></b>\n"
-                        "<img src=\"images/%lu." TYPE_OF_IMAGE "\" alt=\"Printing binary tree №%lu\" >\n"
-                        "</p>\n"
-                        "<hr size = \"4\" color = \"#000000\">\n\n", file, function, line, NumImage, NumImage);
+                        "<b><big> ### In file: %s,\tIn function: %s,\tIn line: %lu ### </big></b>\n", file, function, line);
+
+    size_t counter_strings = 0;
+    while (counter_strings < 6)
+    {
+        if (fgetc(pPipe) == '\n')
+        {
+            counter_strings++;
+        }
+    }
+    int symbol = fgetc(pPipe);
+
+    while (symbol != EOF)
+    {
+        fputc(symbol, FileLog);
+        symbol = fgetc(pPipe);
+    }
+
+    //"<img src=\"images/%lu." TYPE_OF_IMAGE "\" alt=\"Printing binary tree №%lu\" >\n"
+                        
+    fprintf(FileLog,    "</p>\n"
+                        "<hr size = \"4\" color = \"#000000\">\n\n");
     (NumImage)++;
 }
 
@@ -85,11 +110,11 @@ void GenerateGraph (BinaryTree_t* myTree)
     CloseFile (FileGraph);
 } 
 
-void GenerateImage (void)
+FILE* GenerateImage (void)
 {
-    char command[SIZE_OF_COMMAND] = {};
-    snprintf(command, SIZE_OF_COMMAND,"dot " FILE_GRAPH " -T " TYPE_OF_IMAGE " -o " PLACE_IMAGE "%lu." TYPE_OF_IMAGE , NumImage);
-    system (command);
+    FILE* pPipe = popen ("dot " FILE_GRAPH " -T " TYPE_OF_IMAGE, "r");
+    MYASSERT(pPipe, ERR_BAD_OPEN_FILE, )
+    return pPipe;
 }
 
 FILE* OpenFile (const char* file_text)
@@ -152,7 +177,7 @@ void WriteNode (Node_t* CurrentNode)
 
 void WriteNullNode (Node_t* CurrentNode)
 {
-    fprintf (FileGraph, "\tnull%lu [shape = ellipse, style = filled, fillcolor = \"" FILL_BACK_GRAPH_NULL "\", color = \"" COLOR_FRAME "\", label = \"ПУСТО\"];\n"
+    fprintf (FileGraph, "\tnull%lu [shape = ellipse, style = filled, fillcolor = \"" FILL_BACK_GRAPH_NULL "\", color = \"" COLOR_FRAME "\", label = \"NULL\"];\n"
                         "\tnode%p -> null%lu [color = \"" COLOR_EDGE_GRAPH "\"];\n", NullNodes, CurrentNode, NullNodes);
 }
 

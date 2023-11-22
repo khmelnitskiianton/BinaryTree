@@ -13,6 +13,7 @@ typedef struct Node Node_t;
 
 typedef struct BinaryTree {
     Node_t* Root;
+    size_t  Size;
 } BinaryTree_t;
 
 #endif

@@ -5,15 +5,14 @@ Base binary tree with functions and logs with GraphViz
 ## Table of Contents
 
 - [Introduction](#inroduction)
-- [List of Headers](#list-of-headers)
-- [List of Sources](#list-of-sources)
 - [Myassert](#myassert)
 - [Veryficator](#verificator)
 - [Logs](#logs)
+- [Options of compiling](#options_of_compiling)
 
 ## Introduction
 
-To start programm you need to use CMake and run program
+To start program you need to use CMake and run program
 
 1. Clone repository:
 
@@ -36,49 +35,37 @@ To start programm you need to use CMake and run program
 4. Run program:
 
     ```c
-    $ ./tree
+    $ ./tree.exe
     ```
 
-5. To test functions `TreeInsert(Elem_t, BinaryTree_t*)` and `TreeSearch(Elem_t, BinaryTree_t*)` write it to main.cpp like in example
+5.  To test functions 
+    `TreeInsert(Elem_t, BinaryTree_t*)`
+    `TreeSearch(Elem_t, BinaryTree_t*)` 
+    write it to main.cpp like in example
 
-## List of Headers
+## Options of compiling
 
-- `myassert.h` my assert with beauty printing and not stopping program
-- `func.h`     all about functions
-- `log.h`      all about logs
-- `tree.h`     info about binary tree
-- `element.h`  type of elements in tree
-- `verificator.h` all about verificator
-
-## List of Sources
-
-- `main.cpp` main sources
-- `func.cpp` contents all functions
-- `log.cpp`  source with log-functions
+DEBUG_LOG
+DEBUG_MYASSERT
+DEBUG_VERIFY
 
 ## Myassert
 
 `myassert.h`
 
-DEBUG_MYASSERT 1
-
 Now it relized like MYASSERT() that take all errors with enum and write it to console
 
 ## Verificator
 
-`verificator.h`
+`verificator.cpp` `verificator.h`
 
-DEBUG_VERIFY 1
-
----
+Checking tree for loops and other errors. Functions returns EnumOfErrors 
 
 ## Logs
 
 `log.cpp` `log.h`
 
-DEBUG_LOG 1
-
 Logs use GraphViz to vizualized graphs in pictures
 After generating image it includes to html file `log.html`
 
-![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/images/4.svg)
+![Пример графического лога!](https://github.com/khmelnitskiianton/BinaryTree/log/example_log.svg)

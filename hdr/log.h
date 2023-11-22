@@ -4,12 +4,10 @@
 #define DEBUG_LOG 1
 
 #ifdef DEBUG_LOG
-    #define ON_LOG(...)   __VA_ARGS__
     #define PrintLogTree(myTree) \
             _PrintLogTree(myTree, __FILE__, __PRETTY_FUNCTION__, __LINE__)
 #else
-    #define ON_LOG(...)
-    #define PrintLogTree(myTree) 
+    #define PrintLogTree(myTree)
 #endif
 
 void _PrintLogTree (BinaryTree_t* myTree, 
@@ -17,7 +15,7 @@ void _PrintLogTree (BinaryTree_t* myTree,
 
 void  PrintLogStart  (void);
 void  PrintLogFinish (void);
-void  GenerateImage  (void);
+FILE* GenerateImage (void);
 void  GenerateGraph  (BinaryTree_t* myTree);
 void  WriteNode      (Node_t* CurrentNode);
 void  WriteNullNode  (Node_t* CurrentNode);
@@ -26,9 +24,9 @@ void  WriteTree      (BinaryTree_t* myTree);
 FILE* OpenFile       (const char* file_text);
 void  CloseFile      (FILE* file_text);
 
-#define FILE_LOG "log.html"
-#define FILE_GRAPH "graph.dot"
-#define PLACE_IMAGE "./images/"
+#define FOLDER_LOG "log"
+#define FILE_LOG "log/log.html"
+#define FILE_GRAPH "log/graph.dot"
 #define TYPE_OF_IMAGE "svg"
 const size_t SIZE_OF_COMMAND = 500;
 const size_t SIZE_OF_POINTER = 13;
