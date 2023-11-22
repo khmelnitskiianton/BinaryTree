@@ -38,10 +38,18 @@ To start program you need to use CMake and run program
     $ ./tree.exe
     ```
 
-5.  To test functions 
+5.  To test functions:
     `TreeInsert(Elem_t, BinaryTree_t*)`
     `TreeSearch(Elem_t, BinaryTree_t*)` 
     write it to main.cpp like in example
+
+    To test functions: 
+    `TreePreOrder()` `TreeInOrder()` `TreePreOrder()`
+    You need to write file to write tree in (previously create it `touch <name_of_file>`)
+
+    ```c
+    $ ./tree.exe <name_of_file>
+    ```
 
 ## Options of compiling
 

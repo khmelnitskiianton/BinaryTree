@@ -11,7 +11,7 @@ static FILE*  FileLog   = NULL;
 static FILE*  FileGraph = NULL;
 static size_t NullNodes = 0;
 
-void PrintLogStart (void)
+void _PrintLogStart (void)
 {
     struct stat sb = {};
     if (stat("./" FOLDER_LOG, &sb) || !S_ISDIR(sb.st_mode)) 
@@ -43,7 +43,7 @@ void PrintLogStart (void)
                         "<pre>\n"); 
 }
 
-void PrintLogFinish (void)
+void _PrintLogFinish (void)
 {
     fprintf(FileLog,    "</pre>\n"
                         "</main>\n"

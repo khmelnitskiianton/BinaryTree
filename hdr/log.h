@@ -4,17 +4,23 @@
 #define DEBUG_LOG 1
 
 #ifdef DEBUG_LOG
+    #define PrintLogStart() \
+            _PrintLogStart()
+    #define PrintLogFinish() \
+            _PrintLogFinish()
     #define PrintLogTree(myTree) \
             _PrintLogTree(myTree, __FILE__, __PRETTY_FUNCTION__, __LINE__)
 #else
     #define PrintLogTree(myTree)
+    #define PrintLogStart()
+    #define PrintLogFinish()
 #endif
 
 void _PrintLogTree (BinaryTree_t* myTree, 
                     const char* file,  const char* function, const size_t line);
 
-void  PrintLogStart  (void);
-void  PrintLogFinish (void);
+void  _PrintLogStart  (void);
+void  _PrintLogFinish (void);
 FILE* GenerateImage (void);
 void  GenerateGraph  (BinaryTree_t* myTree);
 void  WriteNode      (Node_t* CurrentNode);

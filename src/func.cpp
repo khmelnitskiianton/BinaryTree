@@ -26,7 +26,7 @@ EnumOfErrors TreeDtor (BinaryTree_t* myTree)
 
     Verify(myTree);
 
-    RecFree (myTree->Root, myTree); 
+    RecFree (myTree->Root); 
 
     return ERR_OK;
 }
@@ -113,15 +113,14 @@ EnumOfErrors TreeSearch (Node_t** ReturnNode, Elem_t Value, BinaryTree_t* myTree
 
     Verify(myTree);
 
-    *ReturnNode = RecSearch (Value, myTree->Root, myTree);
+    *ReturnNode = RecSearch (Value, myTree->Root);
 
     return ERR_OK;
 }
 
-Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode, BinaryTree_t* myTree)
+Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode)
 {
     MYASSERT(CurrentNode, ERR_BAD_POINTER_NODE, return NULL)
-    MYASSERT(myTree, ERR_BAD_POINTER_TREE, return NULL)
 
     if (Value < CurrentNode->Value) 
     {
@@ -132,7 +131,7 @@ Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode, BinaryTree_t* myTree)
         }
         else
         {
-            return RecSearch (Value, CurrentNode, myTree);
+            return RecSearch (Value, CurrentNode);
         }
     }
     if (Value > CurrentNode->Value)
@@ -144,7 +143,7 @@ Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode, BinaryTree_t* myTree)
         }
         else
         {
-            return RecSearch (Value, CurrentNode, myTree);
+            return RecSearch (Value, CurrentNode);
         }
     }
     if (Value == CurrentNode->Value)
@@ -156,19 +155,97 @@ Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode, BinaryTree_t* myTree)
     MYASSERT(0, ERR_TREE_SEARCH_NOT_DONE, return NULL)
 }
 
-void RecFree (Node_t* CurrentNode, BinaryTree_t* myTree)
+void RecFree (Node_t* CurrentNode)
 {
     MYASSERT(CurrentNode, ERR_BAD_POINTER_NODE, return)
-    MYASSERT(myTree, ERR_BAD_POINTER_TREE, return)
 
     if (CurrentNode->Left)
     {
-        RecFree (CurrentNode->Left, myTree);
+        RecFree (CurrentNode->Left);
     }
     if (CurrentNode->Right)
     {
-        RecFree (CurrentNode->Right, myTree);
+        RecFree (CurrentNode->Right);
     }
 
     free(CurrentNode);
 }
+
+EnumOfErrors TreePreOrder (BinaryTree_t* myTree, FILE* filestream)
+{
+    if (!filestream)
+    {
+        printf(MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
+        return ERR_BAD_FILESTREAM;
+    }
+    MYASSERT(myTree, ERR_BAD_POINTER_TREE, return ERR_BAD_POINTER_TREE)
+    Verify(myTree);
+    PrintPreNode(myTree->Root, filestream);
+    fprintf(filestream, "\n");
+    return ERR_OK;
+}
+
+EnumOfErrors TreeInOrder (BinaryTree_t* myTree, FILE* filestream)
+{
+    if (!filestream)
+    {
+        printf(MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
+        return ERR_BAD_FILESTREAM;
+    }
+    MYASSERT(myTree, ERR_BAD_POINTER_TREE, return ERR_BAD_POINTER_TREE)
+    Verify(myTree);
+    PrintInNode(myTree->Root, filestream);
+    fprintf(filestream, "\n");
+    return ERR_OK;
+}
+
+EnumOfErrors TreePostOrder (BinaryTree_t* myTree, FILE* filestream)
+{
+    if (!filestream)
+    {
+        printf(MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
+        return ERR_BAD_FILESTREAM;
+    }
+    MYASSERT(myTree, ERR_BAD_POINTER_TREE, return ERR_BAD_POINTER_TREE)
+    Verify(myTree);
+    PrintInNode(myTree->Root, filestream);
+    fprintf(filestream, "\n");
+    return ERR_OK;
+}
+
+void PrintPreNode (Node_t* CurrentNode, FILE* filestream)
+{
+    if (!CurrentNode) {fprintf(filestream, " nil "); return;}
+    fprintf(filestream, "(");
+
+    fprintf(filestream, " " SPECIFIER " ", CurrentNode->Value);
+    PrintPreNode(CurrentNode->Left, filestream);
+    PrintPreNode(CurrentNode->Right, filestream);
+
+    fprintf(filestream, ")");
+}
+
+void PrintInNode (Node_t* CurrentNode, FILE* filestream)
+{
+    if (!CurrentNode) {fprintf(filestream, " nil "); return;}
+    fprintf(filestream, "(");
+
+    PrintInNode(CurrentNode->Left, filestream);
+    fprintf(filestream, " " SPECIFIER " ", CurrentNode->Value);
+    PrintInNode(CurrentNode->Right, filestream);
+
+    fprintf(filestream, ")");
+}
+
+void PrintPostNode (Node_t* CurrentNode, FILE* filestream)
+{
+    if (!CurrentNode) {fprintf(filestream, " nil "); return;}
+    fprintf(filestream, "(");
+
+    PrintPostNode(CurrentNode->Left, filestream);
+    PrintPostNode(CurrentNode->Right, filestream);
+    fprintf(filestream, " " SPECIFIER " ", CurrentNode->Value);
+
+    fprintf(filestream, ")");
+}
+
