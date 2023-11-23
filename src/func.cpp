@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "colors.h"
 #include "tree.h"
 #include "log.h"
 #include "myassert.h"
@@ -93,8 +94,8 @@ bool RecInsert (Node_t* NewNode, Node_t* CurrentNode, BinaryTree_t* myTree)
     }
     if (NewNode->Value == CurrentNode->Value)
     {
+        printf(BLUE "NUMBER: %d. THIS ELEMENT HAS ALREADY IN TREE!!!\n" RESET, NewNode->Value);
         free (NewNode);
-        printf("THIS ELEMENT HAS ALREADY IN TREE!!!\n");
         return DONE;
     }
 
@@ -107,7 +108,7 @@ EnumOfErrors TreeSearch (Node_t** ReturnNode, Elem_t Value, BinaryTree_t* myTree
 
     if (!(myTree->Root)) 
     {
-        printf ("NO SUCH ELEMENT\n");
+        printf (BLUE "NO SUCH ELEMENT\n" RESET);
         return ERR_OK;
     }
 
@@ -126,29 +127,29 @@ Node_t* RecSearch (Elem_t Value, Node_t* CurrentNode)
     {
         if (CurrentNode->Left == NULL)
         {
-            printf ("NO SUCH ELEMENT\n");
+            printf (BLUE "NO SUCH ELEMENT\n" RESET);
             return NULL;
         }
         else
         {
-            return RecSearch (Value, CurrentNode);
+            return RecSearch (Value, CurrentNode->Left);
         }
     }
     if (Value > CurrentNode->Value)
     {
         if (CurrentNode->Right == NULL)
         {
-            printf ("NO SUCH ELEMENT\n");
+            printf (BLUE "NO SUCH ELEMENT\n" RESET);
             return NULL;
         }
         else
         {
-            return RecSearch (Value, CurrentNode);
+            return RecSearch (Value, CurrentNode->Right);
         }
     }
     if (Value == CurrentNode->Value)
     {
-        printf("\nFIND YOUR ELEMENT:\nPOINTER: %p\t\tVALUE: %d\n", CurrentNode, CurrentNode->Value);
+        printf(CYAN "\nFIND YOUR ELEMENT: POINTER: %p VALUE: %d\n" RESET, CurrentNode, CurrentNode->Value);
         return CurrentNode;
     }
 
@@ -175,7 +176,7 @@ EnumOfErrors TreePreOrder (BinaryTree_t* myTree, FILE* filestream)
 {
     if (!filestream)
     {
-        printf(MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
+        fprintf(stderr, MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
         return ERR_BAD_FILESTREAM;
     }
     MYASSERT(myTree, ERR_BAD_POINTER_TREE, return ERR_BAD_POINTER_TREE)
@@ -189,7 +190,7 @@ EnumOfErrors TreeInOrder (BinaryTree_t* myTree, FILE* filestream)
 {
     if (!filestream)
     {
-        printf(MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
+        fprintf(stderr, MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
         return ERR_BAD_FILESTREAM;
     }
     MYASSERT(myTree, ERR_BAD_POINTER_TREE, return ERR_BAD_POINTER_TREE)
@@ -203,7 +204,7 @@ EnumOfErrors TreePostOrder (BinaryTree_t* myTree, FILE* filestream)
 {
     if (!filestream)
     {
-        printf(MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
+        fprintf(stderr, MAGENTA "Forgot to write file where to write tree!\nTry to start with [./tree.exe <name_of_file>]\n\n" RESET);
         return ERR_BAD_FILESTREAM;
     }
     MYASSERT(myTree, ERR_BAD_POINTER_TREE, return ERR_BAD_POINTER_TREE)
